@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paper Trading Portfolio</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <div class="brand-mark"></div>
+      <div>
+        <h1>Paper Trading Portfolio</h1>
+        <span>Stocks &amp; crypto · paper only · not financial advice</span>
+      </div>
+    </div>
+    <div class="live-badge">
+      <span class="live-dot"></span>
+      <span id="status-label">Ready</span>
+    </div>
+  </header>
+
+  <main class="main">
+    <div id="error" class="error-banner"></div>
+
+    <section class="summary-grid">
+      <div class="summary-card">
+        <div class="label">Portfolio value</div>
+        <div id="total-value" class="value">$0.00</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Total cost basis</div>
+        <div id="total-cost" class="value">—</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Unrealized P&amp;L</div>
+        <div id="total-pnl" class="value">—</div>
+      </div>
+      <div class="summary-card">
+        <div class="label">Positions</div>
+        <div id="total-count" class="value">0</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Look up price</h2>
+      <form id="quote-form" class="add-form">
+        <label>
+          Symbol
+          <input id="quote-symbol" name="symbol" placeholder="AAPL or BTC" required maxlength="20" />
+        </label>
+        <label>
+          Type
+          <select id="quote-type" name="asset_type" required>
+            <option value="stock">Stock</option>
+            <option value="crypto">Crypto</option>
+          </select>
+        </label>
+        <button type="submit" class="btn">Get quote</button>
+      </form>
+      <div id="quote-result" class="quote-result hidden">
+        <div>
+          <span id="quote-symbol-label" class="quote-symbol">—</span>
+          <span id="quote-price" class="quote-price">—</span>
+          <span id="quote-change" class="quote-change">—</span>
+        </div>
+        <button type="button" id="use-quote-btn" class="btn btn-ghost">Use in Add form</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Add holding</h2>
+      <form id="add-form" class="add-form">
+        <label>
+          Symbol
+          <input id="add-symbol" name="symbol" placeholder="AAPL or BTC" required maxlength="20" />
+        </label>
+        <label>
+          Type
+          <select id="add-type" name="asset_type" required>
+            <option value="stock">Stock</option>
+            <option value="crypto">Crypto</option>
+          </select>
+        </label>
+        <label>
+          Quantity
+          <input name="quantity" type="number" step="any" min="0" placeholder="1" required />
+        </label>
+        <label>
+          Cost basis / unit (optional)
+          <input id="add-cost" name="cost_basis" type="number" step="any" min="0" placeholder="150.00" />
+        </label>
+        <button type="submit" class="btn">Add</button>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>Holdings</h2>
+        <button type="button" id="refresh-btn" class="btn btn-ghost">Refresh prices</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Type</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Value</th>
+              <th>P&amp;L</th>
+              <th>24h</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="holdings-body">
+            <tr><td colspan="8" class="muted">No holdings yet. Add one above.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <p class="disclaimer">
+      Paper trading only. Prices may be delayed or unavailable. This is not financial advice,
+      not a broker, and not an offer to buy or sell securities.
+    </p>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
